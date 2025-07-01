@@ -34,6 +34,10 @@ A curated list of community demos using Bright Data's MCP server.
    [📹 YouTube Demo](https://www.youtube.com/watch?v=45OtteCGFiI)
    
    [💻Source Code](https://github.com/bitswired/jobwizard)
+
+  - **Usage example with Gemini CLI**
+
+    [📹 YouTube Tutorial](https://www.youtube.com/watch?v=FE1LChbgFEw)
 ---
 
 Got a cool example? Open a PR or contact us!
