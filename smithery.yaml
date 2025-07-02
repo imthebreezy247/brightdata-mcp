@@ -20,7 +20,7 @@ startCommand:
       args: ['server.js'], 
       env: { 
         API_TOKEN: config.apiToken,
-        WEB_UNLOCKER_ZONE: config.webUnlockerZone || 'mcp_unlocker',
-        BROWSER_ZONE: config.browserZone || 'mcp_browser'
+        WEB_UNLOCKER_ZONE: config.webUnlockerZone,
+        BROWSER_ZONE: config.browserZone
       } 
     })
