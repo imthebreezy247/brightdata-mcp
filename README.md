@@ -101,7 +101,7 @@ Some example queries that this MCP server will be able to help with:
       "command": "npx",
       "args": ["@brightdata/mcp"],
       "env": {
-        "API_TOKEN": "<insert-your-api-token-here>",
+        "API_TOKEN": "<insert-your-api-token-here>"
       }
     }
   }
