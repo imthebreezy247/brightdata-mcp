@@ -32,16 +32,33 @@ Welcome to the official Bright Data Model Context Protocol (MCP) server, enablin
 ![MCP](https://github.com/user-attachments/assets/b949cb3e-c80a-4a43-b6a5-e0d6cec619a7)
 
 ## Table of Content
+- [� Overview](#-overview)
+- [Table of Content](#table-of-content)
 - [🎬 Demo](#-demo)
 - [✨ Features](#-features)
 - [💡 Usage Examples](#-usage-examples)
-- [🚀 Quickstart with Claude Desktop](#-quickstart-with-claude-desktop)
+- [🚀 Quickstart with hosted MCP on Claude Desktop](#-quickstart-with-hosted-mcp-on-claude-desktop)
+  - [Through Connectors:](#through-connectors)
+  - [Through Developer Settings:](#through-developer-settings)
+- [💻 Use with self hosted MCP on Claude Desktop](#-use-with-self-hosted-mcp-on-claude-desktop)
+  - [Through Claude Desktop Extension:](#through-claude-desktop-extension)
+  - [Through `claude_desktop_config.json`:](#through-claude_desktop_configjson)
+    - [🛸 Or for more advanced options:](#-or-for-more-advanced-options)
 - [🔧 Available Tools](#-available-tools)
-- [⚠️ Security Best Practices](#%EF%B8%8F-security-best-practices)
+- [⚠️ Security Best Practices](#️-security-best-practices)
 - [🔧 Account Setup](#-account-setup)
+    - [Optional:](#optional)
 - [🔌 Other MCP Clients](#-other-mcp-clients)
+    - [💻 macOS / Linux (bash/zsh)](#-macos--linux-bashzsh)
+    - [🪟 Windows (Command Prompt)](#-windows-command-prompt)
+    - [🪟 Windows (PowerShell)](#-windows-powershell)
+- [🔄 Changelog](#-changelog)
 - [🎮 Try Bright Data MCP Playgrounds](#-try-bright-data-mcp-playgrounds)
-- [⚠️ Troubleshooting](#%EF%B8%8F-troubleshooting)
+- [⚠️ Troubleshooting](#️-troubleshooting)
+  - [Timeouts when using certain tools](#timeouts-when-using-certain-tools)
+  - [spawn npx ENOENT](#spawn-npx-enoent)
+    - [Finding npm/Node Path](#finding-npmnode-path)
+    - [Update your MCP configuration:](#update-your-mcp-configuration)
 - [👨‍💻 Contributing](#-contributing)
 - [📞 Support](#-support)
 
@@ -164,7 +181,8 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
         "API_TOKEN": "<insert-your-api-token-here>",
         "RATE_LIMIT": "<optional if you want to change rate limit format: limit/time+unit, e.g., 100/1h, 50/30m, 10/5s>",
         "WEB_UNLOCKER_ZONE": "<optional if you want to override the web unlocker zone name - default is mcp_unlocker>",
-        "BROWSER_ZONE": "<optional if you want to override the browser zone name - defaults is mcp_browser>"
+        "BROWSER_ZONE": "<optional if you want to override the browser zone name - defaults is mcp_browser>",
+        "ADVANCED_MODE": "<optional boolean, defaults to false. Set to true to expose all tools including browser and web_data_* tools>"
       }
     }
   }
@@ -174,6 +192,8 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 ## 🔧 Available Tools
 
 [List of Available Tools](https://github.com/brightdata-com/brightdata-mcp/blob/main/assets/Tools.md)
+
+**Note**: By default, only basic tools (`search_engine` and `scrape_as_markdown`) are exposed. To access all tools including browser automation and web data extraction, enable `ADVANCED_MODE` in your configuration (see Account Setup section).
 
 ## ⚠️ Security Best Practices
 
