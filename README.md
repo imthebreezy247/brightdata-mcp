@@ -23,7 +23,11 @@
   </a>
 </p>
 
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=brightdata-remote-mcp&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwbWNwLXJlbW90ZSUyMGh0dHBzJTNBJTJGJTJGbWNwLmJyaWdodGRhdGEuY29tJTJGc3NlJTNGdG9rZW4lM0QlM0N5b3VyLWFwaS1rZXklM0UlMjIlN0Q%3D)
+
 </div>
+
+
 
 ## 🌟 Overview
 
