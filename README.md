@@ -23,8 +23,6 @@
   </a>
 </p>
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=brightdata-remote-mcp&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwbWNwLXJlbW90ZSUyMGh0dHBzJTNBJTJGJTJGbWNwLmJyaWdodGRhdGEuY29tJTJGc3NlJTNGdG9rZW4lM0QlM0N5b3VyLWFwaS1rZXklM0UlMjIlN0Q%3D)
-
 </div>
 
 
@@ -77,6 +75,10 @@ Some example queries that this MCP server will be able to help with:
 - "What's the Wikipedia article of the day?"
 - "What's the 7-day weather forecast in [your location]?"
 - "Of the 3 highest paid tech CEOs, how long have their careers been?" 
+
+## Quickstart with Cursor
+
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=brightdata-remote-mcp&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwbWNwLXJlbW90ZSUyMGh0dHBzJTNBJTJGJTJGbWNwLmJyaWdodGRhdGEuY29tJTJGc3NlJTNGdG9rZW4lM0QlM0N5b3VyLWFwaS1rZXklM0UlMjIlN0Q%3D)
 
 ## 🚀 Quickstart with hosted MCP on Claude Desktop
 
