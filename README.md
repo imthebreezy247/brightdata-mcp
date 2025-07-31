@@ -199,18 +199,23 @@ Instead:
 
 ####   Optional:
 
-3. Configure rate limiting:
+3. Enable Pro Mode (for access to all tools):
+   - Set `PRO_MODE=true` in your environment configuration to access browser automation, structured data extraction, and all available tools
+   - Default: `false` (only exposes `search_engine` and `scrape_as_markdown` tools)
+   - See the advanced configuration example above for implementation details
+
+4. Configure rate limiting:
    - Set the `RATE_LIMIT` environment variable to control API usage
    - Format: `limit/time+unit` (e.g., `100/1h` for 100 calls per hour)
    - Supported time units: seconds (s), minutes (m), hours (h)
    - Examples: `RATE_LIMIT=100/1h`, `RATE_LIMIT=50/30m`, `RATE_LIMIT=10/5s`
    - Rate limiting is session-based (resets when server restarts)
 
-4. Create a custom Web Unlocker zone 
+5. Create a custom Web Unlocker zone 
    - By default, we create a Web Unlocker zone automatically using your API token
    - For more control, you can create your own Web Unlocker zone in your [control panel](https://brightdata.com/cp/zones) and specify it with the `WEB_UNLOCKER_ZONE` environment variable
 
-5. Create a custom  Browser API zone:
+6. Create a custom  Browser API zone:
    - By default, we create a Browser API zone automatically using your API token.
    - For more control, you can create your own Browser API zone in your [control panel](https://brightdata.com/cp/zones) and specify it with the `BROWSER_ZONE` environment variable
 
