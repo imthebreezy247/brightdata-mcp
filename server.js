@@ -10,8 +10,8 @@ const package_json = require('./package.json');
 const api_token = process.env.API_TOKEN;
 const unlocker_zone = process.env.WEB_UNLOCKER_ZONE || 'mcp_unlocker';
 const browser_zone = process.env.BROWSER_ZONE || 'mcp_browser';
-const advenced_mode = process.env.ADVANCED_MODE === 'true';
-const advenced_mode_tools = ['search_engine', 'scrape_as_markdown'];
+const pro_mode = process.env.PRO_MODE === 'true';
+const pro_mode_tools = ['search_engine', 'scrape_as_markdown'];
 function parse_rate_limit(rate_limit_str) {
     if (!rate_limit_str) 
         return null;
@@ -124,7 +124,7 @@ let server = new FastMCP({
 let debug_stats = {tool_calls: {}, session_calls: 0, call_timestamps: []};
 
 const addTool = (tool) => {
-    if (!advenced_mode && !advenced_mode_tools.includes(tool.name)) 
+    if (!pro_mode && !pro_mode_tools.includes(tool.name)) 
         return;
     server.addTool(tool);
 };
