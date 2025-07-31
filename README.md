@@ -171,7 +171,7 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
         "RATE_LIMIT": "<optional if you want to change rate limit format: limit/time+unit, e.g., 100/1h, 50/30m, 10/5s>",
         "WEB_UNLOCKER_ZONE": "<optional if you want to override the web unlocker zone name - default is mcp_unlocker>",
         "BROWSER_ZONE": "<optional if you want to override the browser zone name - defaults is mcp_browser>",
-        "ADVANCED_MODE": "<optional boolean, defaults to false. Set to true to expose all tools including browser and web_data_* tools>"
+        "PRO_MODE": "<optional boolean, defaults to false. Set to true to expose all tools including browser and web_data_* tools>"
       }
     }
   }
@@ -182,7 +182,7 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 
 [List of Available Tools](https://github.com/brightdata-com/brightdata-mcp/blob/main/assets/Tools.md)
 
-**Note**: By default, only basic tools (`search_engine` and `scrape_as_markdown`) are exposed. To access all tools including browser automation and web data extraction, enable `ADVANCED_MODE` in your configuration (see Account Setup section).
+**Note**: By default, only basic tools (`search_engine` and `scrape_as_markdown`) are exposed. To access all tools including browser automation and web data extraction, enable `PRO_MODE` in your configuration (see Account Setup section).
 
 ## ⚠️ Security Best Practices
 
