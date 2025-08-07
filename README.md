@@ -4,7 +4,7 @@
   </a>
 </p>
 
-<h1 align="center">Bright Data MCP</h1>
+<h1 align="center">The Web MCP</h1>
 <h3 align="center">Enhance AI Agents with Real-Time Web Data</h3>
 
 <div align="center">
