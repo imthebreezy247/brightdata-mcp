@@ -33,6 +33,10 @@ Welcome to the official Bright Data Model Context Protocol (MCP) server, enablin
 
 ![MCP](https://github.com/user-attachments/assets/b949cb3e-c80a-4a43-b6a5-e0d6cec619a7)
 
+> **Note**: The Web MCP free tier offers 5,000 requests per month for the first 3 months. After that, a credit card will be required, but there will be no extra charges unless premium features like **mcp_browser** or **Web Scrapers** are used.
+
+
+
 ## Table of Content
 - [🎬 Demo](#-demo)
 - [✨ Features](#-features)
