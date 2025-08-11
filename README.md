@@ -1,8 +1,8 @@
 <p align="center">
   <a href="https://brightdata.com/">
-    <img src="https://mintlify.s3.us-west-1.amazonaws.com/brightdata/logo/light.svg" width="300" alt="Bright Data Logo">
+    <img src="https://github.com/user-attachments/assets/c21b3f7b-7ff1-40c3-b3d8-66706913d62f" alt="Bright Data Logo">
   </a>
-</p>
+
 
 <h1 align="center">The Web MCP</h1>
 <h3 align="center">Enhance AI Agents with Real-Time Web Data</h3>
