@@ -184,6 +184,10 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 
 ## 🔧 Available Tools
 
+> **Important:** Pro mode **is not included in the free tier** and will incur additional charges. If you choose to use **Pro mode**, you’ll gain access to all 60 tools but please be aware of the associated costs.
+
+To enable **Pro mode**, simply add `"PRO_MODE"=true` to your enviroment variables.
+
 [List of Available Tools](https://github.com/brightdata-com/brightdata-mcp/blob/main/assets/Tools.md)
 
 **Note**: By default, only basic tools (`search_engine` and `scrape_as_markdown`) are exposed. To access all tools including browser automation and web data extraction, enable `PRO_MODE` in your configuration (see Account Setup section).
