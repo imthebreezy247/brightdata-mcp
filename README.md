@@ -5,7 +5,7 @@
 
 
 <h1 align="center">The Web MCP</h1>
-<h3 align="center">Enhance AI Agents with Real-Time Web Data</h3>
+<h3 align="center">Enhance your LLM and AI agents with real-time web access</h3>
 
 <div align="center">
   
@@ -29,7 +29,9 @@
 
 ## 🌟 Overview
 
-Welcome to the official Bright Data Model Context Protocol (MCP) server, enabling LLMs, agents and apps to access, discover and extract web data in real-time. This server allows MCP clients, such as Claude Desktop, Cursor, Windsurf and others, to seamlessly search the web, navigate websites, take action and retrieve data - without getting blocked - perfect for scraping tasks.
+Welcome to the official Bright Data's Web MCP server, solving web access for LLMs and AI agents by allowing them to effectively search, extract and navigate the web without getting blocked. The Web MCP supports all major LLMs, IDEs and agent frameworks (either locally hosted, SSE or Streamable HTTP), enabling your tools to seamlessly search the web, navigate websites, take action and retrieve data - without getting blocked.
+
+🚀 The Web MCP includes **5,000 free requests each month** - ideal for your everyday use and for prototyping smart agentic workflows.
 
 ![MCP](https://github.com/user-attachments/assets/b949cb3e-c80a-4a43-b6a5-e0d6cec619a7)
 
