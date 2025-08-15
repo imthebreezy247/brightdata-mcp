@@ -9,7 +9,7 @@
     },
     "scripts": {
         "start": "node server.js",
-        "release": "semantic-release"
+        "release": "semantic-release --dry-run"
     },
     "keywords": [
         "mcp",
