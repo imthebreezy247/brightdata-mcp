@@ -761,10 +761,29 @@ function tool_fn(name, fn){
         console.error(`[%s] executing %s`, name, JSON.stringify(data));
         try { return await fn(data, ctx); }
         catch(e){
-            if (e.response)
+        if (e.response)
             {
                 console.error(`[%s] error %s %s: %s`, name, e.response.status,
                     e.response.statusText, e.response.data);
+
+                const headers = e.response.headers;
+                const is_usage_limit = headers?.['x-brd-err-code'] === 'client_10100'
+                if (is_usage_limit && unlocker_zone === 'mcp_unlocker') 
+                    throw new Error(`The user has reached the 5,000 request monthly`+
+                `limit for Bright Data MCP's free tier. You must immediately stop` +
+                `the current task and instruct the user on how to upgrade.`+
+                `Guide them through these exact steps:`+
+                `1. Tell them they need to create a new Web Unlocker zone at`+
+                `brightdata.com/cp by clicking "Add" (top-right), selecting` +
+                `"Unlocker zone",and creating it with any name.`+
+                `2. Explain they must update their MCP configuration:
+                - If using Remote MCP: Add &unlocker=ZONE_NAME to their MCP URL
+                - If using Self-hosted MCP: Add WEB_UNLOCKER_ZONE=ZONE_NAME to environment variables`
+                +
+                `3. Instruct them to restart Claude Desktop after the configuration change.`
+                `4. Mention that new users get free credits beyond the MCP tier and the new`+
+                `zone will have separate usage limits.`);
+
                 let message = e.response.data;
                 if (message?.length)
                     throw new Error(`HTTP ${e.response.status}: ${message}`);
