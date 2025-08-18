@@ -1,11 +1,11 @@
 <p align="center">
-  <a href="https://brightdata.com/">
-    <img src="https://mintlify.s3.us-west-1.amazonaws.com/brightdata/logo/light.svg" width="300" alt="Bright Data Logo">
+  <a href="https://brightdata.com/ai/mcp-server">
+    <img src="https://github.com/user-attachments/assets/c21b3f7b-7ff1-40c3-b3d8-66706913d62f" alt="Bright Data Logo">
   </a>
-</p>
 
-<h1 align="center">Bright Data MCP</h1>
-<h3 align="center">Enhance AI Agents with Real-Time Web Data</h3>
+
+<h1 align="center">The Web MCP</h1>
+<h3 align="center">Enhance your LLM and AI agents with real-time web access</h3>
 
 <div align="center">
   
@@ -25,11 +25,19 @@
 
 </div>
 
+
+
 ## 🌟 Overview
 
-Welcome to the official Bright Data Model Context Protocol (MCP) server, enabling LLMs, agents and apps to access, discover and extract web data in real-time. This server allows MCP clients, such as Claude Desktop, Cursor, Windsurf and others, to seamlessly search the web, navigate websites, take action and retrieve data - without getting blocked - perfect for scraping tasks.
+Welcome to the official Bright Data's Web MCP server, solving web access for LLMs and AI agents by allowing them to effectively search, extract and navigate the web without getting blocked. The Web MCP supports all major LLMs, IDEs and agent frameworks (either locally hosted, SSE or Streamable HTTP), enabling your tools to seamlessly search the web, navigate websites, take action and retrieve data - without getting blocked.
+
+🚀 The Web MCP includes **5,000 free requests each month** - ideal for your everyday use and for prototyping smart agentic workflows.
 
 ![MCP](https://github.com/user-attachments/assets/b949cb3e-c80a-4a43-b6a5-e0d6cec619a7)
+
+> **Note**: The Web MCP free tier offers 5,000 requests per month for the first 3 months. After that, a credit card will be required, but there will be no extra charges unless premium features like **mcp_browser** or **Web Scrapers** are used.
+
+
 
 ## Table of Content
 - [🎬 Demo](#-demo)
@@ -54,7 +62,7 @@ https://github.com/user-attachments/assets/59f6ebba-801a-49ab-8278-1b2120912e33
 
 https://github.com/user-attachments/assets/61ab0bee-fdfa-4d50-b0de-5fab96b4b91d 
 
-For YouTube tutorials and demos: [Demo](https://github.com/brightdata-com/brightdata-mcp/blob/main/examples/README.md)
+For more YouTube tutorials and demos: [Demo](https://github.com/brightdata-com/brightdata-mcp/blob/main/examples/README.md)
 
 ## ✨ Features
 
@@ -74,7 +82,54 @@ Some example queries that this MCP server will be able to help with:
 - "What's the 7-day weather forecast in [your location]?"
 - "Of the 3 highest paid tech CEOs, how long have their careers been?" 
 
-## 🚀 Quickstart with Claude Desktop
+## Quickstart with Cursor
+
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=brightdata-remote-mcp&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwbWNwLXJlbW90ZSUyMGh0dHBzJTNBJTJGJTJGbWNwLmJyaWdodGRhdGEuY29tJTJGc3NlJTNGdG9rZW4lM0QlM0N5b3VyLWFwaS1rZXklM0UlMjIlN0Q%3D)
+
+## 🚀 Quickstart with hosted MCP on Claude Desktop
+
+### Through Connectors:
+
+1. Open Claude Desktop
+
+2. Go to: Settings → Connectors → Add custom connector
+
+3. Choose a Name, and in the “Remote MCP server URL” section, paste:
+
+```
+https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
+```
+
+4. Replace YOUR_API_TOKEN_HERE with your actual API token from Step 1, and click “Add”
+
+### Through Developer Settings:
+
+1. Open Claude Desktop
+
+2. Go to: Settings → Developer → Edit Config
+
+3. Add this to your claude_desktop_config.json:
+
+```json
+{
+  "mcpServers": {
+    "Bright Data": {
+      "command": "npx",
+      "args": [
+        "mcp-remote",
+        "https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE"
+      ]
+    }
+  }
+}
+```
+
+4. Replace YOUR_API_TOKEN_HERE with your actual API token from Step 1
+
+5. Save and restart Claude Desktop
+
+## 💻 Use with self hosted MCP on Claude Desktop
+
 ### Through [Claude Desktop Extension](https://support.anthropic.com/en/articles/10949351-getting-started-with-model-context-protocol-mcp-on-claude-for-desktop#h_4819d0d1b4):
 
 1. **Download** the Claude Desktop Extension:  
@@ -86,6 +141,7 @@ Some example queries that this MCP server will be able to help with:
 3. **Drag** the `.dtx` file from **Step 1** into the **dropping area**.
 
 4. **Enable** the service and **restart** Claude.
+
 5. Enjoy!
 
 ### Through `claude_desktop_config.json`:
@@ -101,7 +157,7 @@ Some example queries that this MCP server will be able to help with:
       "command": "npx",
       "args": ["@brightdata/mcp"],
       "env": {
-        "API_TOKEN": "<insert-your-api-token-here>",
+        "API_TOKEN": "<insert-your-api-token-here>"
       }
     }
   }
@@ -120,7 +176,8 @@ Some example queries that this MCP server will be able to help with:
         "API_TOKEN": "<insert-your-api-token-here>",
         "RATE_LIMIT": "<optional if you want to change rate limit format: limit/time+unit, e.g., 100/1h, 50/30m, 10/5s>",
         "WEB_UNLOCKER_ZONE": "<optional if you want to override the web unlocker zone name - default is mcp_unlocker>",
-        "BROWSER_ZONE": "<optional if you want to override the browser zone name - defaults is mcp_browser>"
+        "BROWSER_ZONE": "<optional if you want to override the browser zone name - defaults is mcp_browser>",
+        "PRO_MODE": "<optional boolean, defaults to false. Set to true to expose all tools including browser and web_data_* tools>"
       }
     }
   }
@@ -129,7 +186,13 @@ Some example queries that this MCP server will be able to help with:
 
 ## 🔧 Available Tools
 
+> **Important:** Pro mode **is not included in the free tier** and will incur additional charges. If you choose to use **Pro mode**, you’ll gain access to all 60 tools but please be aware of the associated costs.
+
+To enable **Pro mode**, simply add `"PRO_MODE"=true` to your enviroment variables.
+
 [List of Available Tools](https://github.com/brightdata-com/brightdata-mcp/blob/main/assets/Tools.md)
+
+**Note**: By default, only basic tools (`search_engine` and `scrape_as_markdown`) are exposed. To access all tools including browser automation and web data extraction, enable `PRO_MODE` in your configuration (see Account Setup section).
 
 ## ⚠️ Security Best Practices
 
@@ -146,18 +209,23 @@ Instead:
 
 ####   Optional:
 
-3. Configure rate limiting:
+3. Enable Pro Mode (for access to all tools):
+   - Set `PRO_MODE=true` in your environment configuration to access browser automation, structured data extraction, and all available tools
+   - Default: `false` (only exposes `search_engine` and `scrape_as_markdown` tools)
+   - See the advanced configuration example above for implementation details
+
+4. Configure rate limiting:
    - Set the `RATE_LIMIT` environment variable to control API usage
    - Format: `limit/time+unit` (e.g., `100/1h` for 100 calls per hour)
    - Supported time units: seconds (s), minutes (m), hours (h)
    - Examples: `RATE_LIMIT=100/1h`, `RATE_LIMIT=50/30m`, `RATE_LIMIT=10/5s`
    - Rate limiting is session-based (resets when server restarts)
 
-4. Create a custom Web Unlocker zone 
+5. Create a custom Web Unlocker zone 
    - By default, we create a Web Unlocker zone automatically using your API token
    - For more control, you can create your own Web Unlocker zone in your [control panel](https://brightdata.com/cp/zones) and specify it with the `WEB_UNLOCKER_ZONE` environment variable
 
-5. Create a custom  Browser API zone:
+6. Create a custom  Browser API zone:
    - By default, we create a Browser API zone automatically using your API token.
    - For more control, you can create your own Browser API zone in your [control panel](https://brightdata.com/cp/zones) and specify it with the `BROWSER_ZONE` environment variable
 

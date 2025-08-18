@@ -10,7 +10,8 @@ const package_json = require('./package.json');
 const api_token = process.env.API_TOKEN;
 const unlocker_zone = process.env.WEB_UNLOCKER_ZONE || 'mcp_unlocker';
 const browser_zone = process.env.BROWSER_ZONE || 'mcp_browser';
-
+const pro_mode = process.env.PRO_MODE === 'true';
+const pro_mode_tools = ['search_engine', 'scrape_as_markdown'];
 function parse_rate_limit(rate_limit_str) {
     if (!rate_limit_str) 
         return null;
@@ -121,7 +122,14 @@ let server = new FastMCP({
     version: package_json.version,
 });
 let debug_stats = {tool_calls: {}, session_calls: 0, call_timestamps: []};
-server.addTool({
+
+const addTool = (tool) => {
+    if (!pro_mode && !pro_mode_tools.includes(tool.name)) 
+        return;
+    server.addTool(tool);
+};
+
+addTool({
     name: 'search_engine',
     description: 'Scrape search results from Google, Bing or Yandex. Returns '
     +'SERP results in markdown (URL, title, description)',
@@ -152,7 +160,7 @@ server.addTool({
     }),
 });
 
-server.addTool({
+addTool({
     name: 'scrape_as_markdown',
     description: 'Scrape a single webpage URL with advanced options for '
     +'content extraction and get back the results in MarkDown language. '
@@ -175,7 +183,7 @@ server.addTool({
         return response.data;
     }),
 });
-server.addTool({
+addTool({
     name: 'scrape_as_html',
     description: 'Scrape a single webpage URL with advanced options for '
     +'content extraction and get back the results in HTML. '
@@ -198,7 +206,7 @@ server.addTool({
     }),
 });
 
-server.addTool({
+addTool({
     name: 'extract',
     description: 'Scrape a webpage and extract structured data as JSON. '
         + 'First scrapes the page as markdown, then uses AI sampling to convert '
@@ -255,7 +263,7 @@ server.addTool({
     }),
 });
 
-server.addTool({
+addTool({
     name: 'session_stats',
     description: 'Tell the user about the tool usage during this session',
     parameters: z.object({}),
@@ -674,7 +682,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
         parameters[input] = defaults[input] !== undefined ?
             param_schema.default(defaults[input]) : param_schema;
     }
-    server.addTool({
+    addTool({
         name: `web_data_${id}`,
         description,
         parameters: z.object(parameters),
@@ -712,7 +720,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
                         method: 'GET',
                         headers: api_headers(),
                     });
-                    if (snapshot_response.data?.status === 'running')
+                    if (['running', 'building'].includes(snapshot_response.data?.status))
                     {
                         console.error(`[web_data_${id}] snapshot not ready, `
                             +`polling again (attempt `
@@ -739,7 +747,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
 }
 
 for (let tool of browser_tools)
-    server.addTool(tool);
+    addTool(tool);
 
 console.error('Starting server...');
 server.start({transportType: 'stdio'});
@@ -753,10 +761,29 @@ function tool_fn(name, fn){
         console.error(`[%s] executing %s`, name, JSON.stringify(data));
         try { return await fn(data, ctx); }
         catch(e){
-            if (e.response)
+        if (e.response)
             {
                 console.error(`[%s] error %s %s: %s`, name, e.response.status,
                     e.response.statusText, e.response.data);
+
+                const headers = e.response.headers;
+                const is_usage_limit = headers?.['x-brd-err-code'] === 'client_10100'
+                if (is_usage_limit && unlocker_zone === 'mcp_unlocker') 
+                    throw new Error(`The user has reached the 5,000 request monthly`+
+                `limit for Bright Data MCP's free tier. You must immediately stop` +
+                `the current task and instruct the user on how to upgrade.`+
+                `Guide them through these exact steps:`+
+                `1. Tell them they need to create a new Web Unlocker zone at`+
+                `brightdata.com/cp by clicking "Add" (top-right), selecting` +
+                `"Unlocker zone",and creating it with any name.`+
+                `2. Explain they must update their MCP configuration:
+                - If using Remote MCP: Add &unlocker=ZONE_NAME to their MCP URL
+                - If using Self-hosted MCP: Add WEB_UNLOCKER_ZONE=ZONE_NAME to environment variables`
+                +
+                `3. Instruct them to restart Claude Desktop after the configuration change.`
+                `4. Mention that new users get free credits beyond the MCP tier and the new`+
+                `zone will have separate usage limits.`);
+
                 let message = e.response.data;
                 if (message?.length)
                     throw new Error(`HTTP ${e.response.status}: ${message}`);
