@@ -673,7 +673,7 @@ const datasets = [{
     ].join('\n'),
     inputs: ['url'],
 }];
-for (let {dataset_id, id, description, inputs, defaults = {},fixed_values = {}} of datasets)
+for (let {dataset_id, id, description, inputs, defaults = {}, fixed_values = {}} of datasets)
 {
     let parameters = {};
     for (let input of inputs)
