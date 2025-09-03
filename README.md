@@ -84,7 +84,7 @@ Some example queries that this MCP server will be able to help with:
 
 ## Quickstart with Cursor
 
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/install-mcp?name=brightdata-remote-mcp&config=JTdCJTIyY29tbWFuZCUyMiUzQSUyMm5weCUyMC15JTIwbWNwLXJlbW90ZSUyMGh0dHBzJTNBJTJGJTJGbWNwLmJyaWdodGRhdGEuY29tJTJGc3NlJTNGdG9rZW4lM0QlM0N5b3VyLWFwaS1rZXklM0UlMjIlN0Q%3D)
+[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=Bright%20Data&config=eyJjb21tYW5kIjoibnB4IEBicmlnaHRkYXRhL21jcCIsImVudiI6eyJBUElfVE9LRU4iOiI8aW5zZXJ0LXlvdXItYXBpLXRva2VuLWhlcmU%2BIn19)
 
 ## 🚀 Quickstart with hosted MCP on Claude Desktop
 
