@@ -72,7 +72,7 @@ Built by [Bright Data](https://brightdata.com), the world's #1 web data platform
 
 ## ⚡ Quick Start
 
-<details>
+
 <summary><b>📡 Use our hosted server - No installation needed!</b></summary>
 
 Perfect for users who want zero setup. Just add this URL to your MCP client:
@@ -87,9 +87,7 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 3. URL: `https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN`
 4. Click "Add" and you're done! ✨
 
-</details>
 
-<details>
 <summary><b>Run locally on your machine</b></summary>
 
 ```json
@@ -106,7 +104,6 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 }
 ```
 
-</details>
 
 ---
 
@@ -115,8 +112,7 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 <div align="center">
   <table>
     <tr>
-      <th width="33%">🎁 Free Tier</th>
-      <th width="33%">⚡ Rapid Mode</th>
+      <th width="33%">⚡ Rapid Mode (Free tier)</th>
       <th width="33%">💎 Pro Mode</th>
     </tr>
     <tr>
@@ -130,17 +126,6 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
         ❌ Web data tools</p>
         <br/>
         <code>Default Mode</code>
-      </td>
-      <td align="center">
-        <h3>Included Free</h3>
-        <p><strong>4 Essential Tools</strong></p>
-        <hr/>
-        <p>✅ search_engine<br/>
-        ✅ scrape_as_markdown<br/>
-        ✅ Fast & Simple<br/>
-        ✅ No Extra Config<br/>
-        ✅ Perfect for Most Use Cases</p>
-        <br/>
       </td>
       <td align="center">
         <h3>Pay-as-you-go</h3>
