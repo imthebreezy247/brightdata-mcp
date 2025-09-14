@@ -1,154 +1,94 @@
-<p align="center">
+<div align="center">
   <a href="https://brightdata.com/ai/mcp-server">
     <img src="https://github.com/user-attachments/assets/c21b3f7b-7ff1-40c3-b3d8-66706913d62f" alt="Bright Data Logo">
   </a>
 
-
-<h1 align="center">The Web MCP</h1>
-<h3 align="center">Enhance your LLM and AI agents with real-time web access</h3>
-
-<div align="center">
+  <h1>The Web MCP</h1>
   
-<p align="center">
-  <img src="https://img.shields.io/npm/v/@brightdata/mcp?label=version"  
-       alt="npm version"/>
-</p>
+  <p>
+    <strong>🌐 Give your AI real-time web superpowers</strong><br/>
+    <i>Seamlessly connect LLMs to the live web without getting blocked</i>
+  </p>
 
-<p align="center">
-  <img src="https://img.shields.io/npm/dw/@brightdata/mcp"  
-       alt="npm downloads"/>
-  <a href="https://smithery.ai/server/@luminati-io/brightdata-mcp">
-    <img src="https://smithery.ai/badge/@luminati-io/brightdata-mcp"  
-         alt="Smithery score"/>
-  </a>
-</p>
+  <p>
+    <a href="https://www.npmjs.com/package/@brightdata/mcp">
+      <img src="https://img.shields.io/npm/v/@brightdata/mcp?style=for-the-badge&color=blue" alt="npm version"/>
+    </a>
+    <a href="https://www.npmjs.com/package/@brightdata/mcp">
+      <img src="https://img.shields.io/npm/dw/@brightdata/mcp?style=for-the-badge&color=green" alt="npm downloads"/>
+    </a>
+    <a href="https://github.com/brightdata-com/brightdata-mcp/blob/main/LICENSE">
+      <img src="https://img.shields.io/badge/license-MIT-purple?style=for-the-badge" alt="License"/>
+    </a>
+  </p>
 
+  <p>
+    <a href="#-quick-start">Quick Start</a> •
+    <a href="#-features">Features</a> •
+    <a href="#-pricing--modes">Pricing</a> •
+    <a href="#-demos">Demos</a> •
+    <a href="#-documentation">Docs</a> •
+    <a href="#-support">Support</a>
+  </p>
+
+  <div>
+    <h3>🎉 <strong>Free Tier Available!</strong> 🎉</h3>
+    <p><strong>5,000 requests/month FREE</strong> <br/>
+    <sub>Perfect for prototyping and everyday AI workflows</sub></p>
+  </div>
 </div>
 
-
+---
 
 ## 🌟 Overview
 
-Welcome to the official Bright Data's Web MCP server, solving web access for LLMs and AI agents by allowing them to effectively search, extract and navigate the web without getting blocked. The Web MCP supports all major LLMs, IDEs and agent frameworks (either locally hosted, SSE or Streamable HTTP), enabling your tools to seamlessly search the web, navigate websites, take action and retrieve data - without getting blocked.
+**The Web MCP** is your gateway to giving AI assistants true web capabilities. No more outdated responses, no more "I can't access real-time information" - just seamless, reliable web access that actually works.
 
-🚀 The Web MCP includes **5,000 free requests each month** - ideal for your everyday use and for prototyping smart agentic workflows.
+Built by [Bright Data](https://brightdata.com), the world's #1 web data platform, this MCP server ensures your AI never gets blocked, rate-limited, or served CAPTCHAs.
 
-![MCP](https://github.com/user-attachments/assets/b949cb3e-c80a-4a43-b6a5-e0d6cec619a7)
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">✅ <strong>Works with Any LLM</strong><br/><sub>Claude, GPT, Gemini, Llama</sub></td>
+      <td align="center">🛡️ <strong>Never Gets Blocked</strong><br/><sub>Enterprise-grade unblocking</sub></td>
+      <td align="center">🚀 <strong>5,000 Free Requests</strong><br/><sub>Monthly</sub></td>
+      <td align="center">⚡ <strong>Zero Config</strong><br/><sub>Works out of the box</sub></td>
+    </tr>
+  </table>
+</div>
 
-> **Note**: The Web MCP free tier offers 5,000 requests per month for the first 3 months. After that, a credit card will be required, but there will be no extra charges unless premium features like **mcp_browser** or **Web Scrapers** are used.
+---
+
+## 🎯 Perfect For
+
+- 🔍 **Real-time Research** - Get current prices, news, and live data
+- 🛍️ **E-commerce Intelligence** - Monitor products, prices, and availability  
+- 📊 **Market Analysis** - Track competitors and industry trends
+- 🤖 **AI Agents** - Build agents that can actually browse the web
+- 📝 **Content Creation** - Access up-to-date information for writing
+- 🎓 **Academic Research** - Gather data from multiple sources efficiently
+
+---
+
+## ⚡ Quick Start
 
 
+<summary><b>📡 Use our hosted server - No installation needed!</b></summary>
 
-## Table of Content
-- [🎬 Demo](#-demo)
-- [✨ Features](#-features)
-- [💡 Usage Examples](#-usage-examples)
-- [🚀 Quickstart with Claude Desktop](#-quickstart-with-claude-desktop)
-- [🔧 Available Tools](#-available-tools)
-- [⚠️ Security Best Practices](#%EF%B8%8F-security-best-practices)
-- [🔧 Account Setup](#-account-setup)
-- [🔌 Other MCP Clients](#-other-mcp-clients)
-- [🎮 Try Bright Data MCP Playgrounds](#-try-bright-data-mcp-playgrounds)
-- [⚠️ Troubleshooting](#%EF%B8%8F-troubleshooting)
-- [👨‍💻 Contributing](#-contributing)
-- [📞 Support](#-support)
-
-
-## 🎬 Demo
-
-The videos below demonstrate a minimal use case for Claude Desktop:
-
-https://github.com/user-attachments/assets/59f6ebba-801a-49ab-8278-1b2120912e33
-
-https://github.com/user-attachments/assets/61ab0bee-fdfa-4d50-b0de-5fab96b4b91d 
-
-For more YouTube tutorials and demos: [Demo](https://github.com/brightdata-com/brightdata-mcp/blob/main/examples/README.md)
-
-## ✨ Features
-
-- **Real-time Web Access**: Access up-to-date information directly from the web
-- **Bypass Geo-restrictions**: Access content regardless of location constraints
-- **Web Unlocker**: Navigate websites with bot detection protection
-- **Browser Control**: Remote browser automation capabilities
-- **Seamless Integration**: Works with all MCP-compatible AI assistants
-
-## 💡 Usage Examples
-
-Some example queries that this MCP server will be able to help with:
-
-- "Google some movies that are releasing soon in [your area]"
-- "What's Tesla's current market cap?"
-- "What's the Wikipedia article of the day?"
-- "What's the 7-day weather forecast in [your location]?"
-- "Of the 3 highest paid tech CEOs, how long have their careers been?" 
-
-## Quickstart with Cursor
-
-[![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=Bright%20Data&config=eyJjb21tYW5kIjoibnB4IEBicmlnaHRkYXRhL21jcCIsImVudiI6eyJBUElfVE9LRU4iOiI8aW5zZXJ0LXlvdXItYXBpLXRva2VuLWhlcmU%2BIn19)
-
-## 🚀 Quickstart with hosted MCP on Claude Desktop
-
-### Through Connectors:
-
-1. Open Claude Desktop
-
-2. Go to: Settings → Connectors → Add custom connector
-
-3. Choose a Name, and in the “Remote MCP server URL” section, paste:
+Perfect for users who want zero setup. Just add this URL to your MCP client:
 
 ```
 https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 ```
 
-4. Replace YOUR_API_TOKEN_HERE with your actual API token from Step 1, and click “Add”
+**Setup in Claude Desktop:**
+1. Go to: Settings → Connectors → Add custom connector
+2. Name: `Bright Data Web`
+3. URL: `https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN`
+4. Click "Add" and you're done! ✨
 
-### Through Developer Settings:
 
-1. Open Claude Desktop
-
-2. Go to: Settings → Developer → Edit Config
-
-3. Add this to your claude_desktop_config.json:
-
-```json
-{
-  "mcpServers": {
-    "Bright Data": {
-      "command": "npx",
-      "args": [
-        "mcp-remote",
-        "https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE"
-      ]
-    }
-  }
-}
-```
-
-4. Replace YOUR_API_TOKEN_HERE with your actual API token from Step 1
-
-5. Save and restart Claude Desktop
-
-## 💻 Use with self hosted MCP on Claude Desktop
-
-### Through [Claude Desktop Extension](https://support.anthropic.com/en/articles/10949351-getting-started-with-model-context-protocol-mcp-on-claude-for-desktop#h_4819d0d1b4):
-
-1. **Download** the Claude Desktop Extension:  
-   [📦 Bright Data's MCP Extension](https://github.com/brightdata/brightdata-mcp/raw/refs/heads/main/brightdata-mcp-extension.dxt)
-
-2. **Open** Claude and go to:  
-   `Settings` → `Extensions`
-
-3. **Drag** the `.dtx` file from **Step 1** into the **dropping area**.
-
-4. **Enable** the service and **restart** Claude.
-
-5. Enjoy!
-
-### Through `claude_desktop_config.json`:
-
-1. Install `nodejs` to get the `npx` command (node.js module runner). Installation instructions can be found on the [node.js website](https://nodejs.org/en/download)
-
-2. Go to Claude > Settings > Developer > Edit Config > Edit "claude_desktop_config.json" to include the following:
+<summary><b>Run locally on your machine</b></summary>
 
 ```json
 {
@@ -157,177 +97,305 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
       "command": "npx",
       "args": ["@brightdata/mcp"],
       "env": {
-        "API_TOKEN": "<insert-your-api-token-here>"
+        "API_TOKEN": "<your-api-token-here>"
       }
     }
   }
 }
 ```
 
-#### 🛸 Or for more advanced options: 
-
-```json
-{
-  "mcpServers": {
-    "Bright Data": {
-      "command": "npx",
-      "args": ["@brightdata/mcp"],
-      "env": {
-        "API_TOKEN": "<insert-your-api-token-here>",
-        "RATE_LIMIT": "<optional if you want to change rate limit format: limit/time+unit, e.g., 100/1h, 50/30m, 10/5s>",
-        "WEB_UNLOCKER_ZONE": "<optional if you want to override the web unlocker zone name - default is mcp_unlocker>",
-        "BROWSER_ZONE": "<optional if you want to override the browser zone name - defaults is mcp_browser>",
-        "PRO_MODE": "<optional boolean, defaults to false. Set to true to expose all tools including browser and web_data_* tools>"
-      }
-    }
-  }
-}
-```
-
-## 🔧 Available Tools
-
-> **Important:** Pro mode **is not included in the free tier** and will incur additional charges. If you choose to use **Pro mode**, you’ll gain access to all 60 tools but please be aware of the associated costs.
-
-To enable **Pro mode**, simply add `"PRO_MODE"=true` to your enviroment variables.
-
-[List of Available Tools](https://github.com/brightdata-com/brightdata-mcp/blob/main/assets/Tools.md)
-
-**Note**: By default, only basic tools (`search_engine` and `scrape_as_markdown`) are exposed. To access all tools including browser automation and web data extraction, enable `PRO_MODE` in your configuration (see Account Setup section).
-
-## ⚠️ Security Best Practices
-
-**Important:** Always treat scraped web content as untrusted data. Never use raw scraped content directly in LLM prompts to avoid potential prompt injection risks. 
-Instead:
-- Filter and validate all web data before processing
-- Use structured data extraction rather than raw text (web_data tools)
-
-## 🔧 Account Setup
-
-1. Make sure you have an account on [brightdata.com](https://brightdata.com) (new users get free credit for testing, and pay as you go options are available)
-
-2. Get your API key from the [user settings page](https://brightdata.com/cp/setting/users), or from the welcome email you received
-
-####   Optional:
-
-3. Enable Pro Mode (for access to all tools):
-   - Set `PRO_MODE=true` in your environment configuration to access browser automation, structured data extraction, and all available tools
-   - Default: `false` (only exposes `search_engine` and `scrape_as_markdown` tools)
-   - See the advanced configuration example above for implementation details
-
-4. Configure rate limiting:
-   - Set the `RATE_LIMIT` environment variable to control API usage
-   - Format: `limit/time+unit` (e.g., `100/1h` for 100 calls per hour)
-   - Supported time units: seconds (s), minutes (m), hours (h)
-   - Examples: `RATE_LIMIT=100/1h`, `RATE_LIMIT=50/30m`, `RATE_LIMIT=10/5s`
-   - Rate limiting is session-based (resets when server restarts)
-
-5. Create a custom Web Unlocker zone 
-   - By default, we create a Web Unlocker zone automatically using your API token
-   - For more control, you can create your own Web Unlocker zone in your [control panel](https://brightdata.com/cp/zones) and specify it with the `WEB_UNLOCKER_ZONE` environment variable
-
-6. Create a custom  Browser API zone:
-   - By default, we create a Browser API zone automatically using your API token.
-   - For more control, you can create your own Browser API zone in your [control panel](https://brightdata.com/cp/zones) and specify it with the `BROWSER_ZONE` environment variable
-
-## 🔌 Other MCP Clients
-
-To use this MCP server with other agent types, you should adapt the following to your specific software:
-
-- Before running the server, make sure the `API_TOKEN=<your-token>` environment variable is set
-- The full command to run the MCP server is `npx @brightdata/mcp`
-
-
-#### 💻 macOS / Linux (bash/zsh)
-
-```bash
-export API_TOKEN=your-token
-npx @brightdata/mcp
-```
-
-#### 🪟 Windows (Command Prompt)
-
-```cmd
-set API_TOKEN=your-token
-npx @brightdata/mcp
-```
-
-#### 🪟 Windows (PowerShell)
-
-```powershell
-$env:API_TOKEN="your-token"
-npx @brightdata/mcp
-```
-
-> 💡 **Tip:** You can also use a `.env` file and a tool like [`dotenv`](https://www.npmjs.com/package/dotenv) to manage environment variables more easily during development.
 
 ---
 
-## 🔄 Changelog
+## 🚀 Pricing & Modes
 
-[CHANGELOG.md](https://github.com/brightdata-com/brightdata-mcp/blob/main/CHANGELOG.md)
+<div align="center">
+  <table>
+    <tr>
+      <th width="33%">⚡ Rapid Mode (Free tier)</th>
+      <th width="33%">💎 Pro Mode</th>
+    </tr>
+    <tr>
+      <td align="center">
+        <h3>$0/month</h3>
+        <p><strong>5,000 requests</strong></p>
+        <hr/>
+        <p>✅ Web Search<br/>
+        ✅ Scraping with Web unlocker<br/>
+        ❌ Browser Automation<br/>
+        ❌ Web data tools</p>
+        <br/>
+        <code>Default Mode</code>
+      </td>
+      <td align="center">
+        <h3>Pay-as-you-go</h3>
+        <p><strong>Every thing in rapid and 60+ Advanced Tools</strong></p>
+        <hr/>
+        <p>✅ Browser Control<br/>
+        ✅ Web Data APIs<br/>
+        <br/>
+        <br/>
+        <br/>
+        <code>PRO_MODE=true</code>
+      </td>
+    </tr>
+  </table>
+</div>
 
-## 🎮 Try Bright Data MCP Playgrounds
+> **💡 Note:** Pro mode is **not included** in the free tier and incurs additional charges based on usage.
 
-Want to try Bright Data MCP without setting up anything? 
+---
 
-Check out this playground on [Smithery](https://smithery.ai/server/@luminati-io/brightdata-mcp/tools):
+## ✨ Features
 
-[![2025-05-06_10h44_20](https://github.com/user-attachments/assets/52517fa6-827d-4b28-b53d-f2020a13c3c4)](https://smithery.ai/server/@luminati-io/brightdata-mcp/tools)
+### 🔥 Core Capabilities
 
-This platform provides an easy way to explore the capabilities of Bright Data MCP without any local setup. Just sign in and start experimenting with web data collection!
+<table>
+  <tr>
+    <td>🔍 <b>Smart Web Search</b><br/>Google-quality results optimized for AI</td>
+    <td>📄 <b>Clean Markdown</b><br/>AI-ready content extraction</td>
+  </tr>
+  <tr>
+    <td>🌍 <b>Global Access</b><br/>Bypass geo-restrictions automatically</td>
+    <td>🛡️ <b>Anti-Bot Protection</b><br/>Never get blocked or rate-limited</td>
+  </tr>
+  <tr>
+    <td>🤖 <b>Browser Automation</b><br/>Control real browsers remotely (Pro)</td>
+    <td>⚡ <b>Lightning Fast</b><br/>Optimized for minimal latency</td>
+  </tr>
+</table>
 
-## ⚠️ Troubleshooting
+### 🎯 Example Queries That Just Work
 
-### Timeouts when using certain tools
-
-Some tools can involve reading web data, and the amount of time needed to load the page can vary by quite a lot in extreme circumstances.
-
-To ensure that your agent will be able to consume the data, set a high enough timeout in your agent settings.
-
-A value of `180s` should be enough for 99% of requests, but some sites load slower than others, so tune this to your needs.
-
-### spawn npx ENOENT
-
-This error occurs when your system cannot find the `npx` command. To fix it:
-
-#### Finding npm/Node Path
-
-**macOS:**
-
+```yaml
+✅ "What's Tesla's current stock price?"
+✅ "Find the best-rated restaurants in Tokyo right now"
+✅ "Get today's weather forecast for New York"
+✅ "What movies are releasing this week?"
+✅ "What are the trending topics on Twitter today?"
 ```
-which node
+
+---
+
+## 🎬 Demos
+
+> **Note:** These videos show earlier versions. New demos coming soon! 🎥
+
+<details>
+<summary><b>View Demo Videos</b></summary>
+
+### Basic Web Search Demo
+https://github.com/user-attachments/assets/59f6ebba-801a-49ab-8278-1b2120912e33
+
+### Advanced Scraping Demo
+https://github.com/user-attachments/assets/61ab0bee-fdfa-4d50-b0de-5fab96b4b91d
+
+[📺 More tutorials on YouTube →](https://github.com/brightdata-com/brightdata-mcp/blob/main/examples/README.md)
+
+</details>
+
+---
+
+## 🔧 Available Tools
+
+### ⚡ Rapid Mode Tools (Default - Free)
+
+| Tool | Description | Use Case |
+|------|-------------|----------|
+| 🔍 `search_engine` | Web search with AI-optimized results | Research, fact-checking, current events |
+| 📄 `scrape_as_markdown` | Convert any webpage to clean markdown | Content extraction, documentation |
+
+### 💎 Pro Mode Tools (60+ Tools)
+
+<details>
+<summary><b>Click to see all Pro tools</b></summary>
+
+| Category | Tools | Description |
+|----------|-------|-------------|
+| **Browser Control** | `scraping_browser.*` | Full browser automation |
+| **Web Data APIs** | `web_data_*` | Structured data extraction |
+| **E-commerce** | Product scrapers | Amazon, eBay, Walmart data |
+| **Social Media** | Social scrapers | Twitter, LinkedIn, Instagram |
+| **Maps & Local** | Location tools | Google Maps, business data |
+
+[📚 View complete tool documentation →](https://github.com/brightdata-com/brightdata-mcp/blob/main/assets/Tools.md)
+
+</details>
+
+---
+
+## 🎮 Try It Now!
+
+### 🧪 Online Playground
+Try the Web MCP without any setup:
+
+<div align="center">
+  <a href="https://smithery.ai/server/@luminati-io/brightdata-mcp/tools">
+    <img src="https://img.shields.io/badge/Try_on-Smithery-00C7B7?style=for-the-badge&logo=data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMjQiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAyNCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPHBhdGggZD0iTTEyIDJMMyA3VjE3TDEyIDIyTDIxIDE3VjdMMTIgMloiIHN0cm9rZT0id2hpdGUiIHN0cm9rZS13aWR0aD0iMiIvPgo8L3N2Zz4=" alt="Smithery Playground"/>
+  </a>
+</div>
+
+---
+
+## 🔧 Configuration
+
+### Basic Setup
+```json
+{
+  "mcpServers": {
+    "Bright Data": {
+      "command": "npx",
+      "args": ["@brightdata/mcp"],
+      "env": {
+        "API_TOKEN": "your-token-here"
+      }
+    }
+  }
+}
 ```
 
-Shows path like `/usr/local/bin/node`
-
-**Windows:**
-
+### Advanced Configuration
+```json
+{
+  "mcpServers": {
+    "Bright Data": {
+      "command": "npx",
+      "args": ["@brightdata/mcp"],
+      "env": {
+        "API_TOKEN": "your-token-here",
+        "PRO_MODE": "true",              // Enable all 60+ tools
+        "RATE_LIMIT": "100/1h",          // Custom rate limiting
+        "WEB_UNLOCKER_ZONE": "custom",   // Custom unlocker zone
+        "BROWSER_ZONE": "custom_browser" // Custom browser zone
+      }
+    }
+  }
+}
 ```
-where node
+
+---
+
+## 📚 Documentation
+
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://docs.brightdata.com/mcp-server/overview">
+          <img src="https://img.shields.io/badge/📖-API_Docs-blue?style=for-the-badge" alt="API Docs"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/brightdata-com/brightdata-mcp/blob/main/examples">
+          <img src="https://img.shields.io/badge/💡-Examples-green?style=for-the-badge" alt="Examples"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://github.com/brightdata-com/brightdata-mcp/blob/main/CHANGELOG.md">
+          <img src="https://img.shields.io/badge/📝-Changelog-orange?style=for-the-badge" alt="Changelog"/>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://brightdata.com/blog/ai/web-scraping-with-mcp">
+          <img src="https://img.shields.io/badge/📚-Tutorial-purple?style=for-the-badge" alt="Tutorial"/>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 🚨 Common Issues & Solutions
+
+<details>
+<summary><b>🔧 Troubleshooting Guide</b></summary>
+
+### ❌ "spawn npx ENOENT" Error
+**Solution:** Install Node.js or use the full path to node:
+```json
+"command": "/usr/local/bin/node"  // macOS/Linux
+"command": "C:\\Program Files\\nodejs\\node.exe"  // Windows
 ```
 
-Shows path like `C:\Program Files\nodejs\node.exe`
+### ⏱️ Timeouts on Complex Sites
+**Solution:** Increase timeout in your client settings to 180s
 
-#### Update your MCP configuration:
+### 🔑 Authentication Issues
+**Solution:** Ensure your API token is valid and has proper permissions
 
-Replace the `npx` command with the full path to Node, for example, on mac, it will look as follows:
+### 📡 Remote Server Connection
+**Solution:** Check your internet connection and firewall settings
 
-```
-"command": "/usr/local/bin/node"
-```
+[More troubleshooting →](https://github.com/brightdata-com/brightdata-mcp#troubleshooting)
 
-## 👨‍💻 Contributing
+</details>
 
-We welcome contributions to help improve the Bright Data MCP! Here's how you can help:
+---
 
-1. **Report Issues**: If you encounter any bugs or have feature requests, please open an issue on our GitHub repository.
-2. **Submit Pull Requests**: Feel free to fork the repository and submit pull requests with enhancements or bug fixes.
-3. **Coding Style**: All JavaScript code should follow [Bright Data's JavaScript coding conventions](https://brightdata.com/dna/js_code). This ensures consistency across the codebase.
-4. **Documentation**: Improvements to documentation, including this README, are always appreciated.
-5. **Examples**: Share your use cases by contributing examples to help other users.
+## 🤝 Contributing
 
-For major changes, please open an issue first to discuss your proposed changes. This ensures your time is well spent and aligned with project goals.
+We love contributions! Here's how you can help:
+
+- 🐛 [Report bugs](https://github.com/brightdata-com/brightdata-mcp/issues)
+- 💡 [Suggest features](https://github.com/brightdata-com/brightdata-mcp/issues)
+- 🔧 [Submit PRs](https://github.com/brightdata-com/brightdata-mcp/pulls)
+- ⭐ Star this repo!
+
+Please follow [Bright Data's coding standards](https://brightdata.com/dna/js_code).
+
+---
 
 ## 📞 Support
 
-If you encounter any issues or have questions, please reach out to the Bright Data support team or open an issue in the repository.
+<div align="center">
+  <table>
+    <tr>
+      <td align="center">
+        <a href="https://github.com/brightdata-com/brightdata-mcp/issues">
+          <strong>🐛 GitHub Issues</strong><br/>
+          <sub>Report bugs & features</sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="https://docs.brightdata.com/mcp-server/overview">
+          <strong>📚 Documentation</strong><br/>
+          <sub>Complete guides</sub>
+        </a>
+      </td>
+      <td align="center">
+        <a href="mailto:support@brightdata.com">
+          <strong>✉️ Email</strong><br/>
+          <sub>support@brightdata.com</sub>
+        </a>
+      </td>
+    </tr>
+  </table>
+</div>
+
+---
+
+## 📜 License
+
+MIT © [Bright Data Ltd.](https://brightdata.com)
+
+---
+
+<div align="center">
+  <p>
+    <strong>Built with ❤️ by</strong><br/>
+    <a href="https://brightdata.com">
+      <img src="https://idsai.net.technion.ac.il/files/2022/01/Logo-600.png" alt="Bright Data" height="30"/>
+    </a>
+  </p>
+  <p>
+    <sub>The world's #1 web data platform</sub>
+  </p>
+  
+  <br/>
+  
+  <p>
+    <a href="https://github.com/brightdata-com/brightdata-mcp">⭐ Star us on GitHub</a> • 
+    <a href="https://brightdata.com/blog">Read our Blog</a>
+  </p>
+</div>
