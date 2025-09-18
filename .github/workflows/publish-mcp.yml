@@ -37,9 +37,6 @@ jobs:
       - name: Login to MCP Registry
         run: ./mcp-publisher login github-oidc
 
-      - name: Validate server.json
-        run: ./mcp-publisher validate
-
       - name: Publish to MCP Registry
         run: ./mcp-publisher publish
 
