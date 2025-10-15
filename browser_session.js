@@ -1,5 +1,6 @@
 'use strict'; /*jslint node:true es9:true*/
 import * as playwright from 'playwright';
+import {AriaSnapshotFilter} from './aria_snapshot_filter.js';
 
 export class Browser_session {
     constructor({cdp_endpoint}){
@@ -8,17 +9,17 @@ export class Browser_session {
         this._currentDomain = 'default';
     }
 
-    _getDomain(url) {
+    _getDomain(url){
         try {
             const urlObj = new URL(url);
             return urlObj.hostname;
-        } catch(e) {
+        } catch(e){
             console.error(`Error extracting domain from ${url}:`, e);
             return 'default';
         }
     }
 
-    async _getDomainSession(domain, {log}={}) {
+    async _getDomainSession(domain, {log}={}){
         if (!this._domainSessions.has(domain)) 
         {
             this._domainSessions.set(domain, {
@@ -51,7 +52,7 @@ export class Browser_session {
                 session.browser = await playwright.chromium.connectOverCDP(
                     this.cdp_endpoint);
                 session.browserClosed = false;
-                session.browser.on('disconnected', () => {
+                session.browser.on('disconnected', ()=>{
                     log?.(`Browser disconnected for domain ${domain}`);
                     session.browser = null;
                     session.page = null;
@@ -98,13 +99,10 @@ export class Browser_session {
                     else
                         session.page = await existingContexts[0].newPage();
                 }
-                session.page.on('request', request => {
-                    session.requests.set(request, null);
-                });
-                session.page.on('response', response => {
-                    session.requests.set(response.request(), response);
-                });
-                console.error('Network listeners attached, current requests:', session.requests.size);
+                session.page.on('request', request=>
+                    session.requests.set(request, null));
+                session.page.on('response', response=>
+                    session.requests.set(response.request(), response));
                 session.browserClosed = false;
                 session.page.once('close', ()=>{
                     session.page = null;
@@ -124,21 +122,31 @@ export class Browser_session {
         }
     }
 
-    async capture_snapshot() {
+    async capture_snapshot({filtered=true}={}){
         const page = await this.get_page();
         try {
-            const snapshot = await page._snapshotForAI();
+            const fullSnapshot = await page._snapshotForAI();
+            if (!filtered)
+            {
+                return {
+                    url: page.url(),
+                    title: await page.title(),
+                    aria_snapshot: fullSnapshot,
+                };
+            }
+            const filteredSnapshot = AriaSnapshotFilter.filterSnapshot(
+                fullSnapshot);
             return {
                 url: page.url(),
                 title: await page.title(),
-                aria_snapshot: snapshot,
+                aria_snapshot: filteredSnapshot,
             };
-        } catch(e) {
+        } catch(e){
             throw new Error(`Error capturing ARIA snapshot: ${e.message}`);
         }
     }
 
-    async ref_locator({element, ref}) {
+    async ref_locator({element, ref}){
         const page = await this.get_page();
         try {
             const snapshot = await page._snapshotForAI();
@@ -147,25 +155,25 @@ export class Browser_session {
             }
             
             return page.locator(`aria-ref=${ref}`).describe(element);
-        } catch(e) {
+        } catch(e){
             throw new Error(`Error creating ref locator for ${element} with ref ${ref}: ${e.message}`);
         }
     }
 
-    async get_requests() {
+    async get_requests(){
         const domain = this._currentDomain;
         const session = await this._getDomainSession(domain);
         return session.requests;
     }
 
-    async clear_requests() {
+    async clear_requests(){
         const domain = this._currentDomain;
         const session = await this._getDomainSession(domain);
         session.requests.clear();
     }
 
     async close(domain=null){
-        if (domain) {
+        if (domain){
             const session = this._domainSessions.get(domain);
             if (session && session.browser) 
             {
@@ -177,7 +185,8 @@ export class Browser_session {
                 session.requests.clear();
                 this._domainSessions.delete(domain);
             }
-        } else {
+        }
+        else {
             for (const [domain, session] of this._domainSessions.entries()) {
                 if (session.browser) 
                 {
