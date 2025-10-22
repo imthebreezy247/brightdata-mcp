@@ -11,7 +11,8 @@ const api_token = process.env.API_TOKEN;
 const unlocker_zone = process.env.WEB_UNLOCKER_ZONE || 'mcp_unlocker';
 const browser_zone = process.env.BROWSER_ZONE || 'mcp_browser';
 const pro_mode = process.env.PRO_MODE === 'true';
-const pro_mode_tools = ['search_engine', 'scrape_as_markdown'];
+const pro_mode_tools = ['search_engine', 'scrape_as_markdown', 
+    'search_engine_batch', 'scrape_batch'];
 function parse_rate_limit(rate_limit_str) {
     if (!rate_limit_str) 
         return null;
@@ -132,31 +133,52 @@ const addTool = (tool) => {
 addTool({
     name: 'search_engine',
     description: 'Scrape search results from Google, Bing or Yandex. Returns '
-    +'SERP results in markdown (URL, title, description)',
+        +'SERP results in JSON or Markdown (URL, title, description), Ideal for'
+        +'gathering current information, news, and detailed search results.',
     parameters: z.object({
         query: z.string(),
-        engine: z.enum([
-            'google',
-            'bing',
-            'yandex',
-        ]).optional().default('google'),
-        cursor: z.string().optional().describe('Pagination cursor for next page'),
+        engine: z.enum(['google', 'bing', 'yandex'])
+            .optional()
+            .default('google'),
+        cursor: z.string()
+            .optional()
+            .describe('Pagination cursor for next page'),
     }),
-    execute: tool_fn('search_engine', async({query, engine, cursor})=>{
+    execute: tool_fn('search_engine', async ({query, engine, cursor})=>{
+        const is_google = engine=='google';
+        const url = search_url(engine, query, cursor);
         let response = await axios({
             url: 'https://api.brightdata.com/request',
             method: 'POST',
             data: {
-                url: search_url(engine, query, cursor),
+                url: url,
                 zone: unlocker_zone,
                 format: 'raw',
-                data_format: 'markdown',
+                data_format: is_google ? 'parsed' : 'markdown',
             },
             headers: api_headers(),
             responseType: 'text',
         });
-
-        return response.data;
+        if (!is_google)
+            return response.data;
+        try {
+            const searchData = JSON.parse(response.data);
+            return JSON.stringify({
+                organic: searchData.organic || [],
+                images: searchData.images
+                    ? searchData.images.map(img=>img.link) : [],
+                current_page: searchData.pagination.current_page || {},
+                related: searchData.related || [],
+                ai_overview: searchData.ai_overview || null,
+            });
+        } catch(e){
+            return JSON.stringify({
+                organic: [],
+                images: [],
+                pagination: {},
+                related: [],
+            });
+        }
     }),
 });
 
@@ -183,6 +205,100 @@ addTool({
         return response.data;
     }),
 });
+
+addTool({
+    name: 'search_engine_batch',
+    description: 'Run multiple search queries simultaneously. Returns '
+    +'JSON for Google, Markdown for Bing/Yandex.',
+    parameters: z.object({
+        queries: z.array(z.object({
+            query: z.string(),
+            engine: z.enum(['google', 'bing', 'yandex'])
+                .optional()
+                .default('google'),
+            cursor: z.string()
+                .optional(),
+        })).min(1).max(10),
+    }),
+    execute: tool_fn('search_engine_batch', async ({queries})=>{
+        const search_promises = queries.map(({query, engine, cursor})=>{
+            const is_google = (engine || 'google') === 'google';
+            const url = is_google
+                ? `${search_url(engine || 'google', query, cursor)}&brd_json=1`
+                : search_url(engine || 'google', query, cursor);
+
+            return axios({
+                url: 'https://api.brightdata.com/request',
+                method: 'POST',
+                data: {
+                    url,
+                    zone: unlocker_zone,
+                    format: 'raw',
+                    data_format: is_google ? undefined : 'markdown',
+                },
+                headers: api_headers(),
+                responseType: 'text',
+            }).then(response => {
+                if (is_google) {
+                    const search_data = JSON.parse(response.data);
+                    return {
+                        query,
+                        engine: engine || 'google',
+                        result: {
+                            organic: search_data.organic || [],
+                            images: search_data.images ? search_data.images.map(img => img.link) : [],
+                            current_page: search_data.pagination?.current_page || {},
+                            related: search_data.related || [],
+                            ai_overview: search_data.ai_overview || null
+                        }
+                    };
+                }
+                return {
+                    query,
+                    engine: engine || 'google',
+                    result: response.data
+                };
+            });
+        });
+
+        const results = await Promise.all(search_promises);
+        return JSON.stringify(results, null, 2);
+    }),
+});
+
+addTool({
+   name: 'scrape_batch',
+   description: 'Scrape multiple webpages URLs with advanced options for '
+        +'content extraction and get back the results in MarkDown language. '
+        +'This tool can unlock any webpage even if it uses bot detection or '
+        +'CAPTCHA.',
+   parameters: z.object({
+       urls: z.array(z.string().url()).min(1).max(10).describe('Array of URLs to scrape (max 10)')
+   }),
+   execute: tool_fn('scrape_batch', async ({urls})=>{
+       const scrapePromises = urls.map(url => 
+           axios({
+               url: 'https://api.brightdata.com/request',
+               method: 'POST',
+               data: {
+                   url,
+                   zone: unlocker_zone,
+                   format: 'raw',
+                   data_format: 'markdown',
+               },
+               headers: api_headers(),
+               responseType: 'text',
+           }).then(response => ({
+               url,
+               content: response.data
+           }))
+       );
+
+       const results = await Promise.all(scrapePromises);
+       return JSON.stringify(results, null, 2);
+   }),
+});
+
 addTool({
     name: 'scrape_as_html',
     description: 'Scrape a single webpage URL with advanced options for '
@@ -302,8 +418,8 @@ const datasets = [{
         'Requires a valid search keyword and amazon domain URL.',
         'This can be a cache lookup, so it can be more reliable than scraping',
     ].join('\n'),
-    inputs: ['keyword', 'url', 'pages_to_search'],
-    defaults: {pages_to_search: '1'},
+    inputs: ['keyword', 'url'],
+    fixed_values: {pages_to_search: '1'}, 
 }, {
     id: 'walmart_product',
     dataset_id: 'gd_l95fol7l1ru6rlo116',
@@ -673,7 +789,7 @@ const datasets = [{
     ].join('\n'),
     inputs: ['url'],
 }];
-for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
+for (let {dataset_id, id, description, inputs, defaults = {}, fixed_values = {}} of datasets)
 {
     let parameters = {};
     for (let input of inputs)
@@ -687,6 +803,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
         description,
         parameters: z.object(parameters),
         execute: tool_fn(`web_data_${id}`, async(data, ctx)=>{
+            data = {...data, ...fixed_values};
             let trigger_response = await axios({
                 url: 'https://api.brightdata.com/datasets/v3/trigger',
                 params: {dataset_id, include_errors: true},
@@ -736,6 +853,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
                 } catch(e){
                     console.error(`[web_data_${id}] polling error: `
                         +`${e.message}`);
+                    if (e.response?.status === 400) throw e;
                     attempts++;
                     await new Promise(resolve=>setTimeout(resolve, 1000));
                 }
