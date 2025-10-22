@@ -1,46 +1,46 @@
 // LICENSE_CODE ZON
 'use strict'; /*jslint node:true es9:true*/
 
-export class AriaSnapshotFilter {
+export class Aria_snapshot_filter {
     static INTERACTIVE_ROLES = new Set([
         'button', 'link', 'textbox', 'searchbox', 'combobox', 'checkbox',
-        'radio', 'switch', 'slider', 'tab', 'menuitem', 'option'
+        'radio', 'switch', 'slider', 'tab', 'menuitem', 'option',
     ]);
-    static parsePlaywrightSnapshot(snapshotText){
-        const lines = snapshotText.split('\n');
+    static parse_playwright_snapshot(snapshot_text){
+        const lines = snapshot_text.split('\n');
         const elements = [];
         for (const line of lines)
         {
             const trimmed = line.trim();
             if (!trimmed || !trimmed.startsWith('-'))
                 continue;
-            const refMatch = trimmed.match(/\[ref=([^\]]+)\]/);
-            if (!refMatch)
+            const ref_match = trimmed.match(/\[ref=([^\]]+)\]/);
+            if (!ref_match)
                 continue;
-            const ref = refMatch[1];
-            const roleMatch = trimmed.match(/^-\s+([a-zA-Z]+)/);
-            if (!roleMatch)
+            const ref = ref_match[1];
+            const role_match = trimmed.match(/^-\s+([a-zA-Z]+)/);
+            if (!role_match)
                 continue;
-            const role = roleMatch[1];
+            const role = role_match[1];
             if (!this.INTERACTIVE_ROLES.has(role))
                 continue;
-            const nameMatch = trimmed.match(/"([^"]*)"/);
-            const name = nameMatch ? nameMatch[1] : '';
+            const name_match = trimmed.match(/"([^"]*)"/);
+            const name = name_match ? name_match[1] : '';
             let url = null;
-            const nextLineIndex = lines.indexOf(line)+1;
-            if (nextLineIndex<lines.length)
+            const next_line_index = lines.indexOf(line)+1;
+            if (next_line_index<lines.length)
             {
-                const nextLine = lines[nextLineIndex];
-                const urlMatch = nextLine.match(/\/url:\s*(.+)/);
-                if (urlMatch)
-                    url = urlMatch[1].trim().replace(/^["']|["']$/g, '');
+                const next_line = lines[next_line_index];
+                const url_match = next_line.match(/\/url:\s*(.+)/);
+                if (url_match)
+                    url = url_match[1].trim().replace(/^["']|["']$/g, '');
             }
             elements.push({ref, role, name, url});
         }
         return elements;
     }
 
-    static formatCompact(elements){
+    static format_compact(elements){
         const lines = [];
         for (const el of elements)
         {
@@ -63,12 +63,12 @@ export class AriaSnapshotFilter {
         return lines.join('\n');
     }
 
-    static filterSnapshot(snapshotText){
+    static filter_snapshot(snapshot_text){
         try {
-            const elements = this.parsePlaywrightSnapshot(snapshotText);
+            const elements = this.parse_playwright_snapshot(snapshot_text);
             if (elements.length===0)
                 return 'No interactive elements found';
-            return this.formatCompact(elements);
+            return this.format_compact(elements);
         } catch(e){
             return `Error filtering snapshot: ${e.message}\n${e.stack}`;
         }

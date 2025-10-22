@@ -1,6 +1,6 @@
 'use strict'; /*jslint node:true es9:true*/
 import * as playwright from 'playwright';
-import {AriaSnapshotFilter} from './aria_snapshot_filter.js';
+import {Aria_snapshot_filter} from './aria_snapshot_filter.js';
 
 export class Browser_session {
     constructor({cdp_endpoint}){
@@ -125,21 +125,21 @@ export class Browser_session {
     async capture_snapshot({filtered=true}={}){
         const page = await this.get_page();
         try {
-            const fullSnapshot = await page._snapshotForAI();
+            const full_snapshot = await page._snapshotForAI();
             if (!filtered)
             {
                 return {
                     url: page.url(),
                     title: await page.title(),
-                    aria_snapshot: fullSnapshot,
+                    aria_snapshot: full_snapshot,
                 };
             }
-            const filteredSnapshot = AriaSnapshotFilter.filterSnapshot(
-                fullSnapshot);
+            const filtered_snapshot = Aria_snapshot_filter.filter_snapshot(
+                full_snapshot);
             return {
                 url: page.url(),
                 title: await page.title(),
-                aria_snapshot: filteredSnapshot,
+                aria_snapshot: filtered_snapshot,
             };
         } catch(e){
             throw new Error(`Error capturing ARIA snapshot: ${e.message}`);
@@ -150,10 +150,9 @@ export class Browser_session {
         const page = await this.get_page();
         try {
             const snapshot = await page._snapshotForAI();
-            if (!snapshot.includes(`[ref=${ref}]`)) {
-                throw new Error(`Ref ${ref} not found in the current page snapshot. Try capturing new snapshot.`);
-            }
-            
+            if (!snapshot.includes(`[ref=${ref}]`))
+                throw new Error('Ref '+ref+' not found in the current page '
+                    +'snapshot. Try capturing new snapshot.');
             return page.locator(`aria-ref=${ref}`).describe(element);
         } catch(e){
             throw new Error(`Error creating ref locator for ${element} with ref ${ref}: ${e.message}`);

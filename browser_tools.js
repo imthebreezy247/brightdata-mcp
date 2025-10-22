@@ -107,9 +107,12 @@ const scraping_browser_go_forward = {
 let scraping_browser_snapshot = {
     name: 'scraping_browser_snapshot',
     description: [
-        'Capture an ARIA snapshot of the current page showing all interactive elements with their refs.',
-        'This provides accurate element references that can be used with ref-based tools.',
-        'Use this before interacting with elements to get proper refs instead of guessing selectors.'
+        'Capture an ARIA snapshot of the current page showing all interactive '
+        +'elements with their refs.',
+        'This provides accurate element references that can be used with '
+        +'ref-based tools.',
+        'Use this before interacting with elements to get proper refs instead '
+        +'of guessing selectors.'
     ].join('\n'),
     parameters: z.object({}),
     execute: async()=>{
@@ -173,14 +176,14 @@ let scraping_browser_type_ref = {
             await locator.fill(text);
             if (submit)
                 await locator.press('Enter');
-            return `Successfully typed "${text}" into element: ${element} (ref=${ref})`
-                + `${submit ? ' and submitted the form' : ''}`;
+            const suffix = submit ? ' and submitted the form' : '';
+            return 'Successfully typed "'+text+'" into element: '+element
+                +' (ref='+ref+')'+suffix;
         } catch(e){
             throw new UserError(`Error typing into element ${element} with ref ${ref}: ${e}`);
         }
     },
 };
-
 
 let scraping_browser_screenshot = {
     name: 'scraping_browser_screenshot',
@@ -192,7 +195,7 @@ let scraping_browser_screenshot = {
             +'images can be quite large',
         ].join('\n')),
     }),
-    execute: async({full_page = false})=>{
+    execute: async({full_page=false})=>{
         const page = await (await require_browser()).get_page();
         try {
             const buffer = await page.screenshot({fullPage: full_page});
@@ -205,9 +208,9 @@ let scraping_browser_screenshot = {
 
 let scraping_browser_get_html = {
     name: 'scraping_browser_get_html',
-    description: 'Get the HTML content of the current page. Avoid using this tool '
-    +'and if used, use full_page option unless it is important to see things'
-    +'like script tags since this can be large',
+    description: 'Get the HTML content of the current page. Avoid using this '
+    +'tool and if used, use full_page option unless it is important to see '
+    +'things like script tags since this can be large',
     parameters: z.object({
         full_page: z.boolean().optional().describe([
             'Whether to get the full page HTML including head and script tags',
@@ -215,7 +218,7 @@ let scraping_browser_get_html = {
             +'quite large',
         ].join('\n')),
     }),
-    execute: async({full_page = false})=>{
+    execute: async({full_page=false})=>{
         const page = await (await require_browser()).get_page();
         try {
             if (!full_page)
@@ -287,7 +290,8 @@ let scraping_browser_network_requests = {
     description: [
         'Get all network requests made since loading the current page.',
         'Shows HTTP method, URL, status code and status text for each request.',
-        'Useful for debugging API calls, tracking data fetching, and understanding page behavior.'
+        'Useful for debugging API calls, tracking data fetching, and '
+        +'understanding page behavior.'
     ].join('\n'),
     parameters: z.object({}),
     execute: async()=>{
@@ -296,15 +300,14 @@ let scraping_browser_network_requests = {
             const requests = await browser_session.get_requests();
             if (requests.size==0) 
                 return 'No network requests recorded for the current page.';
-            
-            
+
             const results = [];
-            requests.forEach((response, request) => {
+            requests.forEach((response, request)=>{
                 const result = [];
                 result.push(`[${request.method().toUpperCase()}] ${request.url()}`);
                 if (response)
                     result.push(`=> [${response.status()}] ${response.statusText()}`);
-                
+
                 results.push(result.join(' '));
             });
             
