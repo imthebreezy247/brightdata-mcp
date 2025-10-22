@@ -853,6 +853,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}, fixed_values = {}}
                 } catch(e){
                     console.error(`[web_data_${id}] polling error: `
                         +`${e.message}`);
+                    if (e.response?.status === 400) throw e;
                     attempts++;
                     await new Promise(resolve=>setTimeout(resolve, 1000));
                 }
