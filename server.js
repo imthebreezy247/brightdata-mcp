@@ -134,31 +134,52 @@ const addTool = (tool) => {
 addTool({
     name: 'search_engine',
     description: 'Scrape search results from Google, Bing or Yandex. Returns '
-    +'SERP results in markdown (URL, title, description)',
+        +'SERP results in JSON or Markdown (URL, title, description), Ideal for'
+        +'gathering current information, news, and detailed search results.',
     parameters: z.object({
         query: z.string(),
-        engine: z.enum([
-            'google',
-            'bing',
-            'yandex',
-        ]).optional().default('google'),
-        cursor: z.string().optional().describe('Pagination cursor for next page'),
+        engine: z.enum(['google', 'bing', 'yandex'])
+            .optional()
+            .default('google'),
+        cursor: z.string()
+            .optional()
+            .describe('Pagination cursor for next page'),
     }),
-    execute: tool_fn('search_engine', async({query, engine, cursor}, ctx)=>{
+    execute: tool_fn('search_engine', async ({query, engine, cursor}, ctx)=>{
+        const is_google = engine=='google';
+        const url = search_url(engine, query, cursor);
         let response = await axios({
             url: 'https://api.brightdata.com/request',
             method: 'POST',
             data: {
-                url: search_url(engine, query, cursor),
+                url: url,
                 zone: unlocker_zone,
                 format: 'raw',
-                data_format: 'markdown',
+                data_format: is_google ? 'parsed' : 'markdown',
             },
             headers: api_headers(ctx.clientName),
             responseType: 'text',
         });
-
-        return response.data;
+        if (!is_google)
+            return response.data;
+        try {
+            const searchData = JSON.parse(response.data);
+            return JSON.stringify({
+                organic: searchData.organic || [],
+                images: searchData.images
+                    ? searchData.images.map(img=>img.link) : [],
+                current_page: searchData.pagination.current_page || {},
+                related: searchData.related || [],
+                ai_overview: searchData.ai_overview || null,
+            });
+        } catch(e){
+            return JSON.stringify({
+                organic: [],
+                images: [],
+                pagination: {},
+                related: [],
+            });
+        }
     }),
 });
 
@@ -398,8 +419,8 @@ const datasets = [{
         'Requires a valid search keyword and amazon domain URL.',
         'This can be a cache lookup, so it can be more reliable than scraping',
     ].join('\n'),
-    inputs: ['keyword', 'url', 'pages_to_search'],
-    defaults: {pages_to_search: '1'},
+    inputs: ['keyword', 'url'],
+    fixed_values: {pages_to_search: '1'}, 
 }, {
     id: 'walmart_product',
     dataset_id: 'gd_l95fol7l1ru6rlo116',
@@ -769,7 +790,7 @@ const datasets = [{
     ].join('\n'),
     inputs: ['url'],
 }];
-for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
+for (let {dataset_id, id, description, inputs, defaults = {}, fixed_values = {}} of datasets)
 {
     let parameters = {};
     for (let input of inputs)
@@ -783,6 +804,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
         description,
         parameters: z.object(parameters),
         execute: tool_fn(`web_data_${id}`, async(data, ctx)=>{
+            data = {...data, ...fixed_values};
             let trigger_response = await axios({
                 url: 'https://api.brightdata.com/datasets/v3/trigger',
                 params: {dataset_id, include_errors: true},
@@ -832,6 +854,7 @@ for (let {dataset_id, id, description, inputs, defaults = {}} of datasets)
                 } catch(e){
                     console.error(`[web_data_${id}] polling error: `
                         +`${e.message}`);
+                    if (e.response?.status === 400) throw e;
                     attempts++;
                     await new Promise(resolve=>setTimeout(resolve, 1000));
                 }
