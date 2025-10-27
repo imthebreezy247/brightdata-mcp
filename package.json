@@ -8,8 +8,7 @@
         "@brightdata/mcp": "./server.js"
     },
     "scripts": {
-        "start": "node server.js",
-        "release": "semantic-release --dry-run"
+        "start": "node server.js"
     },
     "keywords": [
         "mcp",
@@ -18,10 +17,10 @@
     "author": "Bright Data",
     "repository": {
         "type": "git",
-        "url": "https://github.com/brightdata-com/brightdata-mcp.git"
+        "url": "https://github.com/brightdata/brightdata-mcp.git"
     },
     "bugs": {
-        "url": "https://github.com/brightdata-com/brightdata-mcp/issues"
+        "url": "https://github.com/brightdata/brightdata-mcp/issues"
     },
     "license": "MIT",
     "dependencies": {
@@ -29,13 +28,6 @@
         "fastmcp": "^3.1.1",
         "playwright": "^1.51.1",
         "zod": "^3.24.2"
-    },
-    "devDependencies": {
-        "@semantic-release/commit-analyzer": "^13.0.1",
-        "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^11.0.4",
-        "@semantic-release/npm": "^12.0.2",
-        "@semantic-release/release-notes-generator": "^14.0.3"
     },
     "publishConfig": {
         "access": "public"
