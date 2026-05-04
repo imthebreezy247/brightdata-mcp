@@ -152,6 +152,151 @@ https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN_HERE
 
 ---
 
+## 🔓 Web Unlocker — Step-by-Step Walkthrough
+
+The **Web Unlocker** is the piece that lets your AI fetch any public webpage,
+even if the site normally blocks scrapers (CAPTCHAs, bot walls, geo-blocks,
+login walls, etc.). On the free tier you get **5,000 unlocker requests per
+month** — no credit card needed.
+
+There are three ways to use it. Pick whichever matches how you're working:
+
+| You are using... | Use this option |
+| --- | --- |
+| Claude Desktop (the app) | **Option A — Hosted MCP connector** (easiest) |
+| Claude Desktop, but want local control / extra tools | **Option B — Local MCP server** |
+| Your own script, no Claude | **Option C — Direct API call** |
+
+### Step 1 — Get your API token (do this once)
+
+1. Sign up or log in at [brightdata.com](https://brightdata.com).
+2. In the dashboard, open **Account Settings → API Tokens** (left sidebar).
+3. Click **Add token**, copy the long string it gives you.
+4. Treat the token like a password — anyone with it can spend your quota.
+
+That string is your `API_TOKEN`. Every option below uses it.
+
+> 💡 You don't have to create a "zone" yourself. The MCP server automatically
+> creates a zone named `mcp_unlocker` the first time it runs.
+
+### Option A — Hosted MCP connector (recommended for Claude Desktop)
+
+Zero install, zero terminal, zero config files.
+
+1. Open **Claude Desktop**.
+2. Go to **Settings → Connectors → Add custom connector**.
+3. Fill in:
+   - **Name:** `Bright Data Web`
+   - **URL:** `https://mcp.brightdata.com/mcp?token=YOUR_API_TOKEN`
+4. Replace `YOUR_API_TOKEN` in that URL with the token from Step 1.
+   Leave the rest of the URL exactly as written.
+5. Click **Add**.
+
+That's it. Ask Claude something like
+*"Scrape `https://news.ycombinator.com` and give me the top 5 headlines as
+markdown"* — it will use the unlocker automatically.
+
+### Option B — Local MCP server (more control)
+
+Use this if you want to run the server on your own machine, enable Pro tools,
+or use a custom zone.
+
+**Where the config file lives:**
+
+| OS | File |
+| --- | --- |
+| Windows | `%APPDATA%\Claude\claude_desktop_config.json` |
+| macOS | `~/Library/Application Support/Claude/claude_desktop_config.json` |
+
+Open that file (create it if it doesn't exist) and paste:
+
+```json
+{
+  "mcpServers": {
+    "Bright Data": {
+      "command": "npx",
+      "args": ["@brightdata/mcp"],
+      "env": {
+        "API_TOKEN": "paste-your-token-here"
+      }
+    }
+  }
+}
+```
+
+Replace `paste-your-token-here` with your token, save, then **fully quit and
+reopen Claude Desktop** (the config is only read on startup).
+
+> 🔑 **Where the API key goes:** inside the `env` object, as the value of
+> `API_TOKEN`. Nothing else needs to change. Don't put the token in `args`,
+> don't put it in the URL, don't put it in a file you commit to git.
+
+You'll also need [Node.js](https://nodejs.org) installed for `npx` to work —
+if Claude shows `spawn npx ENOENT`, that's why.
+
+### Option C — Direct API call (no Claude, just a script)
+
+This is the path the snippet you pasted is on. Save the file below as
+`unlocker.js`, set `API_TOKEN` in your environment, then run
+`node unlocker.js`:
+
+```js
+// run with: node unlocker.js
+const API_TOKEN = process.env.API_TOKEN;
+if (!API_TOKEN) throw new Error('Set API_TOKEN env var first');
+
+(async () => {
+  const res = await fetch('https://api.brightdata.com/request', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Bearer ${API_TOKEN}`,
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify({
+      zone: 'mcp_unlocker',
+      url: 'https://geo.brdtest.com/welcome.txt?product=unlocker&method=api',
+      format: 'json',
+    }),
+  });
+  console.log(await res.json());
+})();
+```
+
+To set the env var:
+
+- **PowerShell:** `$env:API_TOKEN = "paste-your-token-here"`
+- **macOS/Linux bash:** `export API_TOKEN=paste-your-token-here`
+
+> ⚠️ **Common gotchas in copy-pasted snippets** (the version you sent had all
+> three of these):
+>
+> 1. **Missing `https://`** — `'api.brightdata.com/request'` will fail.
+>    `fetch()` needs a full URL.
+> 2. **`^&` in the query string** — that `^` is a Windows `cmd.exe` escape
+>    character that gets dragged in when you copy from a `cmd` example. In
+>    JavaScript, write a plain `&` instead.
+> 3. **Hard-coded `[replace with API Key]`** — read the token from
+>    `process.env.API_TOKEN` so you don't accidentally commit it to git.
+>
+> Also: the zone name in the request body must match a zone that exists on
+> your Bright Data account. The MCP creates `mcp_unlocker` for you, so use
+> that. If you create your own zone in the dashboard, use its name and set
+> `WEB_UNLOCKER_ZONE` in the MCP config (Option B) to match.
+
+### How to tell it's working
+
+Once it's wired up, ask Claude something only the live web can answer:
+
+- *"What's the current top story on hacker news right now?"*
+- *"Scrape `https://example.com` and show me the page title."*
+- *"What's the weather in Tokyo today?"*
+
+If Claude answers with real data instead of *"I can't access the internet,"*
+the unlocker is alive. If it errors, double-check that the token is correct
+and that you fully restarted Claude Desktop after editing the config.
+
+---
+
 ## 🚀 Pricing & Modes
 
 <div align="center">
